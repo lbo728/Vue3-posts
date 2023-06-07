@@ -2,7 +2,9 @@
 	<header>
 		<nav class="navbar navbar-expand-sm navbar-dark bg-primary">
 			<div class="container-fluid">
-				<a class="navbar-brand" href="#">BYUNG CODING</a>
+				<RouterLink class="navbar-brand" href="#" to="/"
+					>BYUNG CODING</RouterLink
+				>
 				<button
 					class="navbar-toggler"
 					type="button"

@@ -43,7 +43,6 @@ const routes = [
 		props: true,
 		// props: route => ({ id: parseInt(route.params.id) }),
 	},
-	// props: true,
 	{
 		path: '/posts/:id/edit',
 		name: 'PostEdit',
