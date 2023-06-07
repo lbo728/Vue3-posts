@@ -10,8 +10,8 @@ import axios from 'axios';
 // 	{ id: 5, title: '제목5', content: '내용5', createdAt: '2023-05-05' },
 // ];
 
-export function getPosts() {
-	return axios.get('http://localhost:4000/posts');
+export function getPosts(params) {
+	return axios.get('http://localhost:4000/posts', { params });
 }
 
 export function getPostById(id) {
