@@ -33,7 +33,7 @@ import { getPostById, deletePost } from '@/api/posts';
 import { ref } from 'vue';
 
 const props = defineProps({
-	id: String,
+	id: [Number, String],
 });
 
 const router = useRouter();
