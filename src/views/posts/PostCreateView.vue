@@ -2,6 +2,7 @@
 	<div>
 		<h2 @click="visiableForm = !visiableForm">게시글 생성</h2>
 		<hr class="my-4" />
+		<AppError v-if="error" :message="error.message" />
 		<PostForm
 			v-if="visiableForm"
 			v-model:title="form.title"
@@ -9,14 +10,34 @@
 			@submit.prevent="save"
 		>
 			<template #actions>
-				<button
-					type="button"
-					class="btn btn-outline-dark me-2"
-					@click="goListPage"
-				>
+				<button type="button" class="btn btn-outline-dark" @click="goListPage">
 					목록
 				</button>
-				<button class="btn btn-primary">저장</button>
+				<!-- <template v-if="loading">
+					<button class="btn btn-primary" disabled>
+						<span
+							class="spinner-border spinner-border-sm"
+							role="status"
+							aria-hidden="true"
+						></span>
+						등록중...
+					</button>
+				</template>
+				<template v-else>
+					<button class="btn btn-primary">저장</button>
+				</template> -->
+
+				<button class="btn btn-primary" :disabled="loading">
+					<template v-if="loading">
+						<span
+							class="spinner-border spinner-border-sm"
+							role="status"
+							aria-hidden="true"
+						></span>
+						등록중...
+					</template>
+					<template v-else> 저장 </template>
+				</button>
 			</template>
 		</PostForm>
 	</div>
@@ -36,17 +57,24 @@ const form = ref({
 	title: null,
 	content: null,
 });
-const save = () => {
+
+const error = ref(null);
+const loading = ref(false);
+
+const save = async () => {
 	try {
-		createPost({
+		loading.value = true;
+		await createPost({
 			...form.value,
 			createdAt: Date.now(),
 		});
-		// router.push({ name: 'PostList' });
+		router.push({ name: 'PostList' });
 		vSuccess('등록이 완료되었습니다');
-	} catch (error) {
-		console.error(error);
-		vAlert(error.message);
+	} catch (err) {
+		vAlert(err.message);
+		error.value = err;
+	} finally {
+		loading.value = false;
 	}
 };
 const goListPage = () => router.push({ name: 'PostList' });
