@@ -8,15 +8,22 @@
 			{{ createDate }}
 		</p>
 		<template #footer>
-			<div class="d-flex flex-row-reverse">
+			<div class="d-flex flex-row-reverse gap-2">
 				<button
 					class="btn p-0"
 					@click.stop="$emit('modal')"
 					style="font-size: 12px"
 				>
-					<!-- <i class="bi bi-emoji-sunglasses-fill"></i> -->
+					<i class="bi bi-box-arrow-down-right"></i>
 					자세히 보기
-					<i class="bi bi-arrow-right"></i>
+				</button>
+				<button
+					class="btn p-0"
+					@click.stop="$emit('preview')"
+					style="font-size: 12px"
+				>
+					<i class="bi bi-arrow-down"></i>
+					상세보기
 				</button>
 			</div>
 		</template>
@@ -39,7 +46,7 @@ const props = defineProps({
 		type: [String, Date, Number],
 	},
 });
-defineEmits(['modal']);
+defineEmits(['modal', 'preview']);
 const dayjs = inject('dayjs');
 const createDate = computed(() =>
 	dayjs(props.createAt).format('YYYY.MM.DD HH:mm:ss'),

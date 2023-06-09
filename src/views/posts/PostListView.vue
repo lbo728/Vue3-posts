@@ -21,6 +21,7 @@
 						:create-at="item.createdAt"
 						@click="goPage(item.id)"
 						@modal="openModal(item)"
+						@preview="selectPreview(item.id)"
 					></PostItem>
 				</template>
 			</AppGrid>
@@ -39,10 +40,10 @@
 				:created-at="modalCreatedAt"
 			/>
 		</Teleport>
-		<hr class="my-4" />
-		<template v-if="posts && posts.length > 0">
+		<template v-if="previewId">
+			<hr class="my-4" />
 			<AppCard>
-				<PostDetailView :id="posts[0].id"></PostDetailView>
+				<PostDetailView :id="previewId"></PostDetailView>
 			</AppCard>
 		</template>
 	</div>
@@ -62,6 +63,10 @@ const router = useRouter();
 // const posts = ref([]);
 // const error = ref(null);
 // const loading = ref(false);
+
+const previewId = ref(null);
+const selectPreview = id => (previewId.value = id);
+
 const params = ref({
 	_sort: 'createdAt',
 	_order: 'desc',
