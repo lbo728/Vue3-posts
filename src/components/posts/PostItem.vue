@@ -9,8 +9,14 @@
 		</p>
 		<template #footer>
 			<div class="d-flex flex-row-reverse">
-				<button class="btn p-0" @click.stop="$emit('modal')">
-					<i class="bi bi-emoji-sunglasses-fill"></i>
+				<button
+					class="btn p-0"
+					@click.stop="$emit('modal')"
+					style="font-size: 12px"
+				>
+					<!-- <i class="bi bi-emoji-sunglasses-fill"></i> -->
+					자세히 보기
+					<i class="bi bi-arrow-right"></i>
 				</button>
 			</div>
 		</template>

@@ -1,5 +1,5 @@
 <template>
-	<nav class="mt-5" aria-label="Page navigation example">
+	<nav class="mt-4" aria-label="Page navigation example">
 		<ul class="pagination justify-content-center">
 			<li class="page-item" :class="isPrevPage">
 				<a
