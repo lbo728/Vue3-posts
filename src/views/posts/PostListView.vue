@@ -5,6 +5,7 @@
 		<PostFilter
 			v-model:title="params.title_like"
 			v-model:limit="params._limit"
+			@update:limit="changeLimit"
 		/>
 		<hr class="my-4" />
 
@@ -12,8 +13,12 @@
 
 		<AppError v-else-if="error" :message="error.message" />
 
+		<template v-else-if="!isExist">
+			<p class="text-center py-5 text-muted">검색 결과가 없습니다.</p>
+		</template>
+
 		<template v-else>
-			<AppGrid :items="posts">
+			<AppGrid :items="posts" col-class="col-12 col-md-6 col-lg-6">
 				<template v-slot="{ item }">
 					<PostItem
 						:title="item.title"
@@ -71,15 +76,24 @@ const params = ref({
 	_sort: 'createdAt',
 	_order: 'desc',
 	_page: 1,
-	_limit: 3,
+	_limit: 6,
 	title_like: '',
 });
+
+const changeLimit = value => {
+	params.value._limit = value;
+	params.value._page = 1;
+};
+
 const {
 	response,
 	data: posts,
 	error,
 	loading,
 } = useAxios('/posts', { params });
+
+const isExist = computed(() => posts.value && posts.value.length > 0);
+
 // pagination
 const totalCount = computed(() => response.value.headers['x-total-count']);
 const pageCount = computed(() =>
